@@ -8,8 +8,8 @@ namespace WebDevBackend.Services.EventService
 {
     public interface IEventService
     {
-        Task<List<Event>> GetAllEvents();
-        Task<Event> GetById(int id);
-        Task<List<Event>> AddEvent(Event newEvent);
+        Task<ServiceResponse<List<Event>>> GetAllEvents();
+        Task<ServiceResponse<Event>> GetById(int id);
+        Task<ServiceResponse<List<Event>>> AddEvent(Event newEvent);
     }
 }

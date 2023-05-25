@@ -12,24 +12,27 @@ namespace WebDevBackend.Services.EventService
             new Event(),
             new Event{Id = 1}
         };
-        public async Task<List<Event>> AddEvent(Event newEvent)
+        public async Task<ServiceResponse<List<Event>>> AddEvent(Event newEvent)
         {
+            var serviceResponse = new ServiceResponse<List<Event>>();
             events.Add(newEvent);
-            return events;
+            serviceResponse.Data = events;
+            return serviceResponse;
         }
 
-        public async Task<List<Event>> GetAllEvents()
+        public async Task<ServiceResponse<List<Event>>> GetAllEvents()
         {
-            return events;
+            var serviceResponse = new ServiceResponse<List<Event>>();
+            serviceResponse.Data = events;
+            return serviceResponse;
         }
 
-        public async Task<Event> GetById(int id)
+        public async Task<ServiceResponse<Event>> GetById(int id)
         {
+            var serviceResponse = new ServiceResponse<Event>();
             var e = events.FirstOrDefault(c => c.Id == id);
-            if(e is not null)
-                return e;
-            
-            throw new Exception("Event Not Found");
+            serviceResponse.Data = e;
+            return serviceResponse;
         }
     }
 }
