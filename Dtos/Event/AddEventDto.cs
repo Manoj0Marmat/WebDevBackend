@@ -8,7 +8,6 @@ namespace WebDevBackend.Dtos.Event
 {
     public class AddEventDto
     {
-        public int Id { get; set; } // User ID
         public string Name { get; set; } // Name of the event
         public string Tagline { get; set; } // Tagline for the event
         public DateTime Schedule { get; set; } // Date and time of the event

@@ -21,19 +21,20 @@ namespace WebDevBackend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetEventById(int id)
+        public async Task<ActionResult<ServiceResponse<GetEventDto>>> GetEventById(int id)
         {
-            return Ok(await _eventService.GetById(id));
+            return Ok(await _eventService.GetEventById(id));
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetLatestEvents(string type, int limit, int page)
+        // public async Task<ActionResult<ServiceResponse<List<Event>>>> GetLatestEvents(string type, int limit=1, int page=1)
+        public async Task<ActionResult<ServiceResponse<List<GetEventDto>>>> GetLatestEvents()
         {
-            return Ok(await _eventService.GetAllEvents());
+            return Ok(await _eventService.GetAllEvent());
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Event>>> AddEvent([FromForm]Event newEvent)
+        public async Task<ActionResult<ServiceResponse<List<GetEventDto>>>> AddEvent([FromForm]AddEventDto newEvent)
         {
             return Ok(await _eventService.AddEvent(newEvent));
         }
