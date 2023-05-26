@@ -227,9 +227,7 @@ Content-Type: application/json
   "data": [
     {
       "id": 1,
-      "name": "Event 
-
-1",
+      "name": "Event 1",
       "tagline": "Join us for Event 1",
       "schedule": "2023-05-25T10:00:00Z",
       "description": "This is Event 1 description",
