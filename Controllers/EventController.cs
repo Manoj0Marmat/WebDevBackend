@@ -27,10 +27,19 @@ namespace WebDevBackend.Controllers
         }
 
         [HttpGet]
-        // public async Task<ActionResult<ServiceResponse<List<Event>>>> GetLatestEvents(string type, int limit=1, int page=1)
-        public async Task<ActionResult<ServiceResponse<List<GetEventDto>>>> GetLatestEvents()
+        public async Task<ActionResult<ServiceResponse<List<GetEventDto>>>> GetLatestEvents([FromQuery] string type = "latest", [FromQuery] int limit = 5, [FromQuery] int page = 1)
         {
-            return Ok(await _eventService.GetAllEvent());
+            var serviceResponse = await _eventService.GetAllEvent();
+            
+            if (type == "latest")
+            {
+                serviceResponse.Data = serviceResponse.Data!.OrderByDescending(e => e.Schedule).ToList();
+            }
+            
+            var eventsPerPage = serviceResponse.Data!.Skip((page - 1) * limit).Take(limit).ToList();
+            serviceResponse.Data = eventsPerPage;
+            
+            return Ok(serviceResponse);
         }
 
         [HttpPost]
