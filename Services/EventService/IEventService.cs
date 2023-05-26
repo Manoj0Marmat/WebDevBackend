@@ -12,5 +12,7 @@ namespace WebDevBackend.Services.EventService
         Task<ServiceResponse<List<GetEventDto>>> GetAllEvent();
         Task<ServiceResponse<GetEventDto>> GetEventById(int id);
         Task<ServiceResponse<List<GetEventDto>>> AddEvent(AddEventDto newEvent);
+        Task<ServiceResponse<GetEventDto>> UpdateEvent(UpdateEventDto updateEvent);
+        Task<ServiceResponse<List<GetEventDto>>> DeleteEvent(int id);
     }
 }

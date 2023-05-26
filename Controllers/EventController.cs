@@ -21,7 +21,7 @@ namespace WebDevBackend.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetEventDto>>> GetEventById(int id)
+        public async Task<ActionResult<ServiceResponse<GetEventDto>>> GetSingle(int id)
         {
             return Ok(await _eventService.GetEventById(id));
         }
@@ -39,17 +39,26 @@ namespace WebDevBackend.Controllers
             return Ok(await _eventService.AddEvent(newEvent));
         }
 
-        // [HttpPut("{id}")]
-        // public IActionResult UpdateEvent(UpdateEventDto updateEventDto)
-        // {
-        //     return Ok($"Event with ID: {updateEventDto.Id} updated successfully");
-        // }
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetEventDto>>>> UpdateEvent([FromForm]UpdateEventDto updateEvent)
+        {
+            var res = await _eventService.UpdateEvent(updateEvent);
+            
+            if(res.Data is null)
+                return NotFound(res);
 
+            return Ok(res);
+        }
 
-        // [HttpDelete("{id}")]
-        // public IActionResult DeleteEvent(int id)
-        // {
-        //     return Ok($"Event with ID: {id} deleted successfully");
-        // }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetEventDto>>> DeleteEvent(int id)
+        {
+            var res = await _eventService.DeleteEvent(id);
+            
+            if(res.Data is null)
+                return NotFound(res);
+
+            return Ok(res);
+        }
     }
 }
